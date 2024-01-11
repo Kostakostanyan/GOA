@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roll Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #080000;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #ff0000;
+        }
+
+        #result {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        #score {
+            font-size: 1.5em;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        #round {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 1em;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dice Roll Game</h1>
+
+    <label for="playerName">Your Name:</label>
+    <input type="text" id="playerName" placeholder="Enter your name">
+
+    <button onclick="startGame()">Start Game</button>
+
+    <div id="result"></div>
+    <div id="score"></div>
+    <div id="round"></div>
+
+    <script>
+        function startGame() {
+            const playerName = document.getElementById('playerName').value;
+            if (!playerName) {
+                alert('Please enter your name before starting the game.');
+                return;
+            }
+
+            let playerScore = 0;
+            let computerScore = 0;
+
+            for (let round = 1; round <= 6; round++) {
+                const playerRoll = Math.floor(Math.random() * 6) + 1;
+                const computerRoll = Math.floor(Math.random() * 6) + 1;
+
+                playerScore += playerRoll;
+                computerScore += computerRoll;
+
+                document.getElementById('round').innerHTML = `Round ${round}`;
+                document.getElementById('result').innerHTML = `${playerName}: ${playerRoll} vs Computer: ${computerRoll}`;
+
+                setTimeout(() => {
+                    document.getElementById('score').innerHTML = `${playerName} Score: ${playerScore} | Computer Score: ${computerScore}`;
+                }, 500);
+            }
+
+            setTimeout(() => {
+                const winner = (playerScore > computerScore) ? playerName : "Computer";
+                alert(`Game Over!\n${winner} wins!`);
+            }, 1000);
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    </script>
+
+</body>
+</html>
